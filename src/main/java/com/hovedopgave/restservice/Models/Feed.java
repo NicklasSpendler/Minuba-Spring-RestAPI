@@ -9,4 +9,5 @@ public class Feed {
     @Id
     public long Id;
 
+    
 }
