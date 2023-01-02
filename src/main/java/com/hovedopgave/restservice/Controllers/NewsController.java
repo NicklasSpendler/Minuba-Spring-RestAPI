@@ -47,7 +47,7 @@ public class NewsController {
     }
 
     @DeleteMapping("/news/{id}")
-    void deleteEmployee(@PathVariable Long id){
+    void deleteNews(@PathVariable Long id){
         newsRepository.deleteById(id);
     }
 }
