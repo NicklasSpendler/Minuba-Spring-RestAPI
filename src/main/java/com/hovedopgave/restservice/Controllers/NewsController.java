@@ -3,51 +3,46 @@ package com.hovedopgave.restservice.Controllers;
 import com.hovedopgave.restservice.Exceptions.NewsNotFoundException;
 import com.hovedopgave.restservice.Models.News;
 import com.hovedopgave.restservice.Repository.NewsRepository;
+import com.hovedopgave.restservice.Service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class NewsController {
 
     @Autowired
-    NewsRepository newsRepository;
+    NewsService newsService;
 
     @GetMapping("/news")
     List<News> all() {
-        return newsRepository.findAll();
+        return newsService.findAll();
     }
 
-    @PostMapping("/news")
-    News newNews(@RequestBody News newNews){
-        return newsRepository.save(newNews);
+    @PostMapping(value="/news", consumes = "application/json")
+    public ResponseEntity<News> newNews(@RequestBody News newNews){
+        newsService.create(newNews);
+        return new ResponseEntity<News>(newNews, HttpStatus.CREATED);
     }
 
     @GetMapping("/news/{id}")
     News one(@PathVariable long id){
-        return newsRepository.findById(id)
-                .orElseThrow(() -> new NewsNotFoundException(id));
+        return newsService.findOne(id);
     }
 
     @PutMapping("/news/{id}")
     News replaceNews(@RequestBody News newNews, @PathVariable Long id) {
-        return newsRepository.findById(id)
-                .map(news -> {
-                    news.setTitle(newNews.getTitle());
-                    news.setDescription(newNews.getDescription());
-                    news.setImagePath(newNews.getImagePath());
-                    news.setPublishDate(newNews.getPublishDate());
-                    return newsRepository.save(news);
-                })
-                .orElseGet(() -> {
-                    newNews.setId(id);
-                    return newsRepository.save(newNews);
-                });
+        return newsService.updateOne(newNews, id);
     }
 
     @DeleteMapping("/news/{id}")
     void deleteNews(@PathVariable Long id){
-        newsRepository.deleteById(id);
+        newsService.deleteOne(id);
     }
+
+
 }
