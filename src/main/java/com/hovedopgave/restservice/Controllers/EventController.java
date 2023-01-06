@@ -4,10 +4,9 @@ import com.hovedopgave.restservice.Models.Events;
 import com.hovedopgave.restservice.Models.News;
 import com.hovedopgave.restservice.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +24,16 @@ public class EventController {
     @GetMapping("/events/{id}")
     Events one(@PathVariable long id){
         return eventService.findOne(id);
+    }
+
+    @PostMapping(value="/event", consumes = "application/json")
+    public ResponseEntity<Events> newNews(@RequestBody Events newEvents){
+        eventService.create(newEvents);
+        return new ResponseEntity<Events>(newEvents, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/event/{id}")
+    Events replaceNews(@RequestBody Events newEvent, @PathVariable Long id) {
+        return eventService.updateOne(newEvent, id);
     }
 }
