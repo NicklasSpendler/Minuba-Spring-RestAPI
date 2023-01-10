@@ -27,13 +27,18 @@ public class EventController {
     }
 
     @PostMapping(value="/event", consumes = "application/json")
-    public ResponseEntity<Events> newNews(@RequestBody Events newEvents){
+    public ResponseEntity<Events> newEvent(@RequestBody Events newEvents){
         eventService.create(newEvents);
         return new ResponseEntity<Events>(newEvents, HttpStatus.CREATED);
     }
 
     @PutMapping("/event/{id}")
-    Events replaceNews(@RequestBody Events newEvent, @PathVariable Long id) {
+    Events replaceEvent(@RequestBody Events newEvent, @PathVariable Long id) {
         return eventService.updateOne(newEvent, id);
+    }
+
+    @DeleteMapping("/event/{id}")
+    void deleteEvent(@PathVariable Long id){
+        eventService.deleteOne(id);
     }
 }
