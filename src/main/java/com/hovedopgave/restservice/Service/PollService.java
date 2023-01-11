@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.sound.midi.SysexMessage;
 import java.util.List;
 
 @Service
@@ -27,5 +28,13 @@ public class PollService {
     public Polls findOne(long id){
         return pollRepository.findById(id)
                 .orElseThrow(() -> new NewsNotFoundException(id));
+    }
+
+    public void updateOne(Polls newPoll, Long id){
+        pollRepository.updatePoll(id, newPoll.getTitle(), newPoll.getDescription(), newPoll.getDateEnd(), newPoll.getDateStart(), newPoll.getType(), newPoll.getImagePath());
+    }
+
+    public void deleteOne(long id){
+        pollRepository.deleteById(id);
     }
 }

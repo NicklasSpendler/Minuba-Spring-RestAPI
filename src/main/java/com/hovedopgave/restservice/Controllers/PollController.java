@@ -31,4 +31,14 @@ public class PollController {
     Polls one(@PathVariable long id){
         return pollService.findOne(id);
     }
+
+    @PutMapping("/poll/{id}")
+    public void replacePoll(@RequestBody Polls newPoll, @PathVariable Long id) {
+        pollService.updateOne(newPoll, id);
+    }
+
+    @DeleteMapping("/poll/{id}")
+    void deletePoll(@PathVariable Long id){
+        pollService.deleteOne(id);
+    }
 }
