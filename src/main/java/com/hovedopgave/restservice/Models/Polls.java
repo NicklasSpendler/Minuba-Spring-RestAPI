@@ -19,6 +19,8 @@ public class Polls {
     private String dateStart;
     private String dateEnd;
 
+    private boolean pinned;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pollId")
     private Set<PollAnswers> pollAnswers = new HashSet<>();
@@ -99,6 +101,14 @@ public class Polls {
 
     public void setPollAnswers(Set<PollAnswers> pollAnswers) {
         this.pollAnswers = pollAnswers;
+    }
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
     }
 
     @Override
