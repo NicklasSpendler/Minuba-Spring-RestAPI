@@ -15,6 +15,7 @@ public class Events {
     private String startTime;
     private String endTime;
     private String location;
+    private boolean pinned;
 
     public Events() {
     }
@@ -92,5 +93,13 @@ public class Events {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
     }
 }

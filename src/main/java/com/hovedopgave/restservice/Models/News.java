@@ -17,6 +17,8 @@ public class News {
     private String description;
     private Date publishDate;
 
+    private boolean pinned;
+
     public News() {
     }
 
@@ -58,6 +60,14 @@ public class News {
 
     public void setId(Long id) {
         Id = id;
+    }
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
     }
 
     public News(Long id, String title, String imagePath, String description, Date publishDate) {
