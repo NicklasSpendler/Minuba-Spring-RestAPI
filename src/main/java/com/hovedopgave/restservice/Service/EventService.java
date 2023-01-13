@@ -2,6 +2,7 @@ package com.hovedopgave.restservice.Service;
 
 import com.hovedopgave.restservice.Exceptions.NewsNotFoundException;
 import com.hovedopgave.restservice.Models.Events;
+import com.hovedopgave.restservice.Models.Polls;
 import com.hovedopgave.restservice.Repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,13 @@ public class EventService {
     public void deleteOne(long id){
         eventRepository.deleteById(id);
     }
+
+    public void createEventCoWorkerColumn(Long eventId, Long coWorkerId){
+        eventRepository.InsertEventCoWorkerColumn(coWorkerId, eventId);
+    }
+
+    public void deleteCoworkerFromEvent(Long eventId, Long coWorkerId){
+        eventRepository.deleteCoworkerFromEventColumn(coWorkerId, eventId);
+    }
+
 }

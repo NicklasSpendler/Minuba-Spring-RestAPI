@@ -1,6 +1,11 @@
 package com.hovedopgave.restservice.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name ="Events")
@@ -17,10 +22,14 @@ public class Events {
     private String location;
     private boolean pinned;
 
+    @ManyToMany(mappedBy = "events", fetch = FetchType.EAGER)
+    private Set<CoWorkers> coWorkers;
+
+
     public Events() {
     }
 
-    public Events(long id, String title, String description, String imagePath, String date, String startTime, String endTime, String location) {
+    public Events(long id, String title, String description, String imagePath, String date, String startTime, String endTime, String location, boolean pinned, Set<CoWorkers> coWorkers) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,6 +38,8 @@ public class Events {
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
+        this.pinned = pinned;
+        this.coWorkers = coWorkers;
     }
 
     public long getId() {
@@ -101,5 +112,29 @@ public class Events {
 
     public void setPinned(boolean pinned) {
         this.pinned = pinned;
+    }
+
+    public Set<CoWorkers> getCoWorkers() {
+        return coWorkers;
+    }
+
+    public void setCoWorkers(Set<CoWorkers> coWorkers) {
+        this.coWorkers = coWorkers;
+    }
+
+    @Override
+    public String toString() {
+        return "Events{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", date='" + date + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", location='" + location + '\'' +
+                ", pinned=" + pinned +
+                ", coWorkers=" + coWorkers +
+                '}';
     }
 }

@@ -1,6 +1,9 @@
 package com.hovedopgave.restservice.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name ="Poll")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "pollId")
 public class Polls {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +31,20 @@ public class Polls {
     @JoinColumn(name = "pollId")
     private Set<PollAnswers> pollAnswers = new HashSet<>();
 
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pollId")
+    private Set<PollVotes> pollVotes = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pollId")
+    private Set<CoWorkerMonthVote> coWorkerMonthVote = new HashSet<>();
+
+
     public Polls() {
     }
 
-    public Polls(Long pollId, String title, String imagePath, String description, String type, String dateStart, String dateEnd, Set<PollAnswers> pollAnswers) {
+    public Polls(Long pollId, String title, String imagePath, String description, String type, String dateStart, String dateEnd, boolean pinned, Set<PollAnswers> pollAnswers, Set<PollVotes> pollVotes, Set<CoWorkerMonthVote> coWorkerMonthVote) {
         this.pollId = pollId;
         this.title = title;
         this.imagePath = imagePath;
@@ -36,7 +52,18 @@ public class Polls {
         this.type = type;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.pinned = pinned;
         this.pollAnswers = pollAnswers;
+        this.pollVotes = pollVotes;
+        this.coWorkerMonthVote = coWorkerMonthVote;
+    }
+
+    public Set<PollVotes> getPollVotes() {
+        return pollVotes;
+    }
+
+    public void setPollVotes(Set<PollVotes> pollVotes) {
+        this.pollVotes = pollVotes;
     }
 
     public Long getPollId() {
@@ -111,6 +138,14 @@ public class Polls {
         this.pinned = pinned;
     }
 
+    public Set<CoWorkerMonthVote> getCoWorkerMonthVote() {
+        return coWorkerMonthVote;
+    }
+
+    public void setCoWorkerMonthVote(Set<CoWorkerMonthVote> coWorkerMonthVote) {
+        this.coWorkerMonthVote = coWorkerMonthVote;
+    }
+
     @Override
     public String toString() {
         return "Polls{" +
@@ -121,7 +156,10 @@ public class Polls {
                 ", type='" + type + '\'' +
                 ", dateStart='" + dateStart + '\'' +
                 ", dateEnd='" + dateEnd + '\'' +
+                ", pinned=" + pinned +
                 ", pollAnswers=" + pollAnswers +
+                ", pollVotes=" + pollVotes +
+                ", coWorkerMonthVote=" + coWorkerMonthVote +
                 '}';
     }
 }

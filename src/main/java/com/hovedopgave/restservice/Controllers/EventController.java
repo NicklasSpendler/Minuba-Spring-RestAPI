@@ -41,4 +41,14 @@ public class EventController {
     void deleteEvent(@PathVariable Long id){
         eventService.deleteOne(id);
     }
+
+    @PostMapping(value="/event/{eventId}/coworker/{coWorkerId}", consumes = "application/json")
+    public void test(@PathVariable Long eventId, @PathVariable Long coWorkerId){
+        eventService.createEventCoWorkerColumn(eventId, coWorkerId);
+    }
+
+    @DeleteMapping("/event/{eventId}/coworker/{coWorkerId}")
+    void deleteCoworkerFromEvent(@PathVariable Long eventId, @PathVariable Long coWorkerId){
+        eventService.deleteCoworkerFromEvent(eventId,coWorkerId);
+    }
 }

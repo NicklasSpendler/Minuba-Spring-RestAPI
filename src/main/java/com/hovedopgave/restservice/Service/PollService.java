@@ -1,15 +1,13 @@
 package com.hovedopgave.restservice.Service;
 
 import com.hovedopgave.restservice.Exceptions.NewsNotFoundException;
-import com.hovedopgave.restservice.Models.Events;
+import com.hovedopgave.restservice.Models.CoWorkerMonthVote;
+import com.hovedopgave.restservice.Models.PollVotes;
 import com.hovedopgave.restservice.Models.Polls;
 import com.hovedopgave.restservice.Repository.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.sound.midi.SysexMessage;
 import java.util.List;
 
 @Service
@@ -36,5 +34,13 @@ public class PollService {
 
     public void deleteOne(long id){
         pollRepository.deleteById(id);
+    }
+
+    public int createVote(PollVotes newPollVotes){
+        return pollRepository.savePollVote(newPollVotes.getPollAnswers().getId(), newPollVotes.getPolls().getPollId(), newPollVotes.getCoWorkers().getId());
+    }
+
+    public int createCoWorkerMonthVote(CoWorkerMonthVote CoWorkerMonthVote){
+        return pollRepository.saveCoWorkerMonthVote(CoWorkerMonthVote.getCoWorkers().getId(), CoWorkerMonthVote.getPolls().getPollId(), CoWorkerMonthVote.getVotedCoWorker().getId());
     }
 }
