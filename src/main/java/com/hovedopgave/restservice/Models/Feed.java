@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,4 +21,6 @@ public class Feed {
 
     @OneToMany
     public Set<Polls> polls = new HashSet<>();
+
+
 }
