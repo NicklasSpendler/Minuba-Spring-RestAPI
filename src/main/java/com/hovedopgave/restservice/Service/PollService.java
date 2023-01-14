@@ -2,13 +2,11 @@ package com.hovedopgave.restservice.Service;
 
 import com.hovedopgave.restservice.Exceptions.NewsNotFoundException;
 import com.hovedopgave.restservice.Models.CoWorkerMonthVote;
-import com.hovedopgave.restservice.Models.PollResult;
 import com.hovedopgave.restservice.Models.PollVotes;
 import com.hovedopgave.restservice.Models.Polls;
 import com.hovedopgave.restservice.Repository.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
