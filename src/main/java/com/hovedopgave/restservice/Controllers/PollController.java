@@ -1,9 +1,6 @@
 package com.hovedopgave.restservice.Controllers;
 
-import com.hovedopgave.restservice.Models.CoWorkerMonthVote;
-import com.hovedopgave.restservice.Models.Events;
-import com.hovedopgave.restservice.Models.PollVotes;
-import com.hovedopgave.restservice.Models.Polls;
+import com.hovedopgave.restservice.Models.*;
 import com.hovedopgave.restservice.Service.PollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,9 +47,19 @@ public class PollController {
         return new ResponseEntity<PollVotes>(newPollVotes, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/pollvote/{pollId}/coworker/{coWorkerId}")
+    void deletePoll(@PathVariable Long pollId, @PathVariable Long coWorkerId){
+        pollService.deleteVote(pollId,coWorkerId);
+    }
+
     @PostMapping(value="/coworkermonthvote", consumes = "application/json")
     public ResponseEntity<CoWorkerMonthVote> newCoWorkerMonthVote(@RequestBody CoWorkerMonthVote newCoWorkerMonthVote){
         pollService.createCoWorkerMonthVote(newCoWorkerMonthVote);
         return new ResponseEntity<CoWorkerMonthVote>(newCoWorkerMonthVote, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/pollResult/{id}")
+    List<Object[]> pollResult(@PathVariable long id){
+        return pollService.getResult(id);
     }
 }

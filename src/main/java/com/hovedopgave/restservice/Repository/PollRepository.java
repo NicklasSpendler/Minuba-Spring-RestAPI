@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 public interface PollRepository extends JpaRepository<Polls, Long> {
     @Modifying
@@ -22,4 +24,11 @@ public interface PollRepository extends JpaRepository<Polls, Long> {
     @Modifying
     @Query(value = "INSERT INTO co_worker_month_vote (co_workers_id, poll_id, voted_co_worker_id) VALUES (:co_workers_id,:poll_id,:voted_co_worker_id)", nativeQuery = true)
     int saveCoWorkerMonthVote(@Param(value = "co_workers_id") long co_workers_id, @Param(value = "poll_id") long poll_id, @Param(value = "voted_co_worker_id") long voted_co_worker_id);
+
+    @Modifying
+    @Query(value = "DELETE FROM poll_votes WHERE co_workers_id = :co_workers_id and poll_id = :poll_id", nativeQuery = true)
+    int deleteVote(@Param(value = "co_workers_id") long co_workers_id, @Param(value = "poll_id") long poll_id);
+
+    @Query(value = "SELECT poll_answers.poll_answers AS answer, COUNT(*) AS count FROM poll_votes JOIN poll_answers ON poll_votes.poll_answers_id = poll_answers.id WHERE poll_votes.poll_id = :poll_id GROUP BY poll_answers.poll_answers", nativeQuery = true)
+    List<Object[]> getPollResult(@Param(value = "poll_id") long poll_id);
 }
