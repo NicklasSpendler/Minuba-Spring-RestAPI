@@ -70,6 +70,8 @@ public class News {
         this.pinned = pinned;
     }
 
+
+
     public News(Long id, String title, String imagePath, String description, Date publishDate) {
         Id = id;
         this.title = title;

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.HashSet;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
-    public HashSet<News> findTop2ByOrderByPublishDateDesc();
+    HashSet<News> findTop5ByOrderByPublishDateDesc();
 }

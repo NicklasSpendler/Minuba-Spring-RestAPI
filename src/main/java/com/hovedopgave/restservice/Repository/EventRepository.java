@@ -7,8 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+
 @Transactional
 public interface EventRepository extends JpaRepository<Events, Long> {
+    HashSet<Events> findTop5ByOrderByPublishDateDesc();
 
     @Modifying
     @Query(value = "INSERT INTO event_coworkers VALUES (:coworker_id, :event_id)", nativeQuery = true)
