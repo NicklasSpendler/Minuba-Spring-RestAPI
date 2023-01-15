@@ -43,7 +43,7 @@ public class EventController {
     }
 
     @PostMapping(value="/event/{eventId}/coworker/{coWorkerId}", consumes = "application/json")
-    public void test(@PathVariable Long eventId, @PathVariable Long coWorkerId){
+    public void signupToEvent(@PathVariable Long eventId, @PathVariable Long coWorkerId){
         eventService.createEventCoWorkerColumn(eventId, coWorkerId);
     }
 
