@@ -1,10 +1,6 @@
 package com.hovedopgave.restservice.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,7 +12,7 @@ public class Events {
     private String title;
     private String description;
     private String imagePath;
-    private String date;
+    private String publishDate;
     private String startTime;
     private String endTime;
     private String location;
@@ -29,12 +25,12 @@ public class Events {
     public Events() {
     }
 
-    public Events(long id, String title, String description, String imagePath, String date, String startTime, String endTime, String location, boolean pinned, Set<CoWorkers> coWorkers) {
+    public Events(long id, String title, String description, String imagePath, String publishDate, String startTime, String endTime, String location, boolean pinned, Set<CoWorkers> coWorkers) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.imagePath = imagePath;
-        this.date = date;
+        this.publishDate = publishDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
@@ -74,12 +70,12 @@ public class Events {
         this.imagePath = imagePath;
     }
 
-    public String getDate() {
-        return date;
+    public String getPublishDate() {
+        return publishDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
     }
 
     public String getStartTime() {
@@ -122,19 +118,5 @@ public class Events {
         this.coWorkers = coWorkers;
     }
 
-    @Override
-    public String toString() {
-        return "Events{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", imagePath='" + imagePath + '\'' +
-                ", date='" + date + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", location='" + location + '\'' +
-                ", pinned=" + pinned +
-                ", coWorkers=" + coWorkers +
-                '}';
-    }
+
 }

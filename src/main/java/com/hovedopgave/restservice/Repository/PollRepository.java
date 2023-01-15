@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+
 import java.util.List;
 
 @Transactional
@@ -16,6 +18,9 @@ public interface PollRepository extends JpaRepository<Polls, Long> {
     @Modifying
     @Query(value = "UPDATE poll p SET p.title = :title, p.description = :description, p.date_end = :date_end, p.date_start = :date_start, p.type = :type, p.image_path = :image_path WHERE p.poll_id = :poll_id", nativeQuery = true)
     int updatePoll(@Param(value = "poll_id") long id, @Param(value = "title") String title, @Param(value = "description") String description, @Param(value = "date_end") String date_end, @Param(value = "date_start") String date_start, @Param(value = "type") String type, @Param(value = "image_path") String image_path);
+
+
+    HashSet<Polls> findTop5ByOrderByPublishDateDesc();
 
     @Modifying
     @Query(value = "INSERT INTO poll_votes (poll_answers_id, poll_id, co_workers_id) VALUES (:poll_answers_id,:poll_id,:co_workers_id)", nativeQuery = true)

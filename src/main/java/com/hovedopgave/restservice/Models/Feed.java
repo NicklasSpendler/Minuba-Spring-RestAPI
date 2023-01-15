@@ -22,5 +22,4 @@ public class Feed {
     @OneToMany
     public Set<Polls> polls = new HashSet<>();
 
-
 }

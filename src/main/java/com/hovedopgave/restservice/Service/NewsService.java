@@ -33,6 +33,7 @@ public class NewsService {
                     news.setDescription(newNews.getDescription());
                     news.setImagePath(newNews.getImagePath());
                     news.setPublishDate(newNews.getPublishDate());
+                    news.setPinned(newNews.isPinned());
                     return newsRepository.save(news);
                 })
                 .orElseGet(() -> {

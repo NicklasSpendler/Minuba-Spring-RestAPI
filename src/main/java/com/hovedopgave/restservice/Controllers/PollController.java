@@ -48,7 +48,7 @@ public class PollController {
     }
 
     @DeleteMapping("/pollvote/{pollId}/coworker/{coWorkerId}")
-    void deletePoll(@PathVariable Long pollId, @PathVariable Long coWorkerId){
+    void deletePollVote(@PathVariable Long pollId, @PathVariable Long coWorkerId){
         pollService.deleteVote(pollId,coWorkerId);
     }
 

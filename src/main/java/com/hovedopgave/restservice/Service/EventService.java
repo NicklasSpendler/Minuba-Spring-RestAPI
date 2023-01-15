@@ -34,9 +34,10 @@ public class EventService {
                     newEvent.setDescription(newEvent.getDescription());
                     newEvent.setImagePath(newEvent.getImagePath());
                     newEvent.setLocation(newEvent.getLocation());
-                    newEvent.setDate(newEvent.getDate());
+                    newEvent.setPublishDate(newEvent.getPublishDate());
                     newEvent.setStartTime(newEvent.getStartTime());
                     newEvent.setEndTime(newEvent.getEndTime());
+                    newEvent.setPinned((newEvent.isPinned()));
                     return eventRepository.save(newEvent);
                 })
                 .orElseGet(() -> {

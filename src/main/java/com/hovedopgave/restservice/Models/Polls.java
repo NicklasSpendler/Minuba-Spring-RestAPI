@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ public class Polls {
     private String type;
     private String dateStart;
     private String dateEnd;
+    private Date publishDate;
 
     private boolean pinned;
 
@@ -44,7 +46,7 @@ public class Polls {
     public Polls() {
     }
 
-    public Polls(Long pollId, String title, String imagePath, String description, String type, String dateStart, String dateEnd, boolean pinned, Set<PollAnswers> pollAnswers, Set<PollVotes> pollVotes, Set<CoWorkerMonthVote> coWorkerMonthVote) {
+    public Polls(Long pollId, String title, String imagePath, String description, String type, String dateStart, String dateEnd, Date publishDate, boolean pinned, Set<PollAnswers> pollAnswers) {
         this.pollId = pollId;
         this.title = title;
         this.imagePath = imagePath;
@@ -52,18 +54,10 @@ public class Polls {
         this.type = type;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.publishDate = publishDate;
         this.pinned = pinned;
         this.pollAnswers = pollAnswers;
-        this.pollVotes = pollVotes;
         this.coWorkerMonthVote = coWorkerMonthVote;
-    }
-
-    public Set<PollVotes> getPollVotes() {
-        return pollVotes;
-    }
-
-    public void setPollVotes(Set<PollVotes> pollVotes) {
-        this.pollVotes = pollVotes;
     }
 
     public Long getPollId() {
@@ -138,6 +132,14 @@ public class Polls {
         this.pinned = pinned;
     }
 
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
     public Set<CoWorkerMonthVote> getCoWorkerMonthVote() {
         return coWorkerMonthVote;
     }
@@ -156,10 +158,7 @@ public class Polls {
                 ", type='" + type + '\'' +
                 ", dateStart='" + dateStart + '\'' +
                 ", dateEnd='" + dateEnd + '\'' +
-                ", pinned=" + pinned +
                 ", pollAnswers=" + pollAnswers +
-                ", pollVotes=" + pollVotes +
-                ", coWorkerMonthVote=" + coWorkerMonthVote +
                 '}';
     }
 }
